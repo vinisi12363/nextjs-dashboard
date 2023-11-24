@@ -10,6 +10,51 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
+export async function fetchCountInvoices(){
+  try{
+    const data = await sql<InvoicesTable>`SELECT COUNT (*) FROM invoices`;
+    console.log('invoices data:', data.rows);
+    return data.rows;
+
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices data.');
+
+  };
+  
+
+}
+export async function fetchCountCustomers(){
+  try{
+    const data = await sql<InvoicesTable>`SELECT COUNT (*) FROM customers`;
+    console.log('invoices data:', data.rows);
+    return data.rows;
+
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices data.');
+
+  };
+  
+
+}
+export async function fetchCountPaidInvoices(status: string){
+  try{
+    const data = await sql<InvoicesTable>`SELECT COUNT (*) FROM invoices WHERE status='${status}'`;
+    console.log('invoices data:', data.rows);
+    return data.rows;
+
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoices data.');
+
+  };
+  
+
+}
+
+
+
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
